@@ -9,16 +9,12 @@ use App\Kitaplar;
 
 class UrunlerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //urunler sayfasının ana girişi
-        $sql='select k.id,k.adi,k.resim,k.satisFiyati,k.stok,k.durum,c.adi as kategori,t.adi as turu
-            from kitaplar k ,kategoriler c,turler t
+
+        $sql='select k.Id ,k.adi,k.resim,k.satisFiyati,k.stok,k.durum,c.adi as kategori,t.adi as turu
+            from kitaplars k ,kategoriler c,turler t
             where k.kategori_id = c.Id and k.turu_id = t.Id
             ORDER by k.adi';
         $urunler = DB::select($sql);
@@ -27,12 +23,7 @@ class UrunlerController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    function create()
     {
         //Ekleme Formu
 
@@ -42,11 +33,6 @@ class UrunlerController extends Controller
         return view('admin.urun_ekleme',['turler'=>$turler],['kategoriler'=>$kategoriler]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if($request->hasFile('resim'))
@@ -56,7 +42,7 @@ class UrunlerController extends Controller
             $file -> move(public_path().'/userfiles/',$name);
         }
 
-        DB::table('kitaplar')->insert([
+        DB::table('kitaplars')->insert([
             [
                 'adi'=>$request->get('adi'),
                 'keywords' => $request->get('keywords'),
@@ -74,49 +60,31 @@ class UrunlerController extends Controller
         ]);
         return redirect('admin/urunler')->with('success','Ürünler kaydedildi.');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         //Tek veri gösterme
         echo "Gösterme".$id;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
-        //Düzenleme formunu gösterir.
-        echo "Düzenleme ".$id;
+
+        $turler = DB::select('SELECT * FROM turler ORDER BY adi');
+        $kategoriler = DB::select('SELECT * FROM kategoriler ORDER BY adi');
+        //$veri = DB::select('SELECT * from kitaplars WHERE Id = ?',[$id]);
+        $veri = Kitaplar::findOrFail($id);
+
+        return view("admin.urun_duzenleme",compact('veri','turler','kategoriler'));
+        //rs = record set
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
         //Düzenleme formundan gelen verileri günceller.
         echo "Güncelleme".$id;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

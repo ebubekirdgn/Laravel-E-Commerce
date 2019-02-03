@@ -20,6 +20,7 @@
                 <p>{{\Session::get('success')}}</p>
             </div>
         </br>
+        @endif
         <div class="box-body">
             <table class="table table-bordered">
                 <tr>
@@ -27,7 +28,7 @@
                     <th>Adı</th>
                     <th>Türü</th>
                     <th>Kategorisi</th>
-                    <th>Fiyat</th>
+                    <th>Satış Fiyatı</th>
                     <th>Stok</th>
                     <th>Durum</th>
                     <th>Resim</th>
@@ -35,17 +36,17 @@
                 </tr>
                 @foreach($urunler as $urun)
                     <tr>
-                        <td>{{$urun->id}}</td>
-                        <td>{{$urun->adi}}</td>
-                        <td>{{$urun->turu}}</td>
-                        <td>{{$urun->kategori}}</td>
-                        <td>{{$urun->satisFiyati}}</td>
-                        <td>{{$urun->stok}}</td>
-                        <td>{{$urun->durum}}</td>
-                        <td><img src=" {{url('/')}}/userfiles/{{$urun->resim}}" width="100px" height="100px" /></td>
+                        <td>{{$urun -> Id}}</td>
+                        <td>{{$urun -> adi}}</td>
+                        <td>{{$urun -> turu}}</td>
+                        <td>{{$urun -> kategori}}</td>
+                        <td>{{$urun -> satisFiyati}}</td>
+                        <td>{{$urun -> stok}}</td>
+                        <td>{{$urun -> durum}}</td>
+                        <td><img src=" {{url('/')}}/userfiles/{{$urun->resim}}" width="70px" height="70px" /></td>
                         <td>
-                            <a href="{{url('/')}}/admin/urun/edit/{{$urun->id}}" class="btn btn-primary">Düzenle</a>
-                            <a href="{{url('/')}}/admin/urun/del/{{$urun->id}}" class="btn btn-danger">Sil</a>
+                            <a href="{{url('/')}}/admin/urun/edit/{{$urun->Id}}" class="btn btn-primary">Düzenle</a>
+                            <a href="{{url('/')}}/admin/urun/del/{{$urun->Id}}" class="btn btn-danger">Sil</a>
                         </td>
                     </tr>
                 @endforeach

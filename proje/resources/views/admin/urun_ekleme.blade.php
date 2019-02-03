@@ -3,7 +3,7 @@
 @section('keywords','')
 @section('content')
 <section class="content-header">
-    <h1>Ürün Düzenleme</h1>
+    <h1>Ürün Düzenleme Formu</h1>
     <ol class="breadcrumb">
         <li><a href="{{url('/')}}/admin"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
         <li><a href="{{url('/')}}/admin/urunler">Ürünler</a></li>
@@ -16,7 +16,7 @@
     </div>
     <!-- /.box-header -->
     <!-- form start -->
-    <form class="form-horizontal" action="{{url('/')}}/admin/urun/update/{{$rs=>Id}}" method="post" enctype="multipart/form-data">
+    <form class="form-horizontal" action="{{url('/')}}/admin/urun/save" method="post" enctype="multipart/form-data">
         @csrf
         <div class="box-body">
             <div class="form-group">
