@@ -8,7 +8,7 @@
         <ol class="breadcrumb">
             <li><a href="{{url('/')}}/admin"><i class="fa fa-dashboard"></i> Anasayfa</a></li>
             <li><a href="{{url('/')}}/admin/urunler">Ürünler</a></li>
-            <li class="active">Blank page</li>
+
         </ol>
     </section>
     <div class="box">

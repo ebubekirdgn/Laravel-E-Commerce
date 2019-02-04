@@ -43,8 +43,7 @@ class UrunlerController extends Controller
         }
 
         DB::table('kitaplars')->insert([
-            [
-                'adi'=>$request->get('adi'),
+            ['adi'=>$request->get('adi'),
                 'keywords' => $request->get('keywords'),
                 'description' => $request->description,
                 'turu_id'=>$request->turu_id,
@@ -55,8 +54,7 @@ class UrunlerController extends Controller
                 'satisFiyati'=>$request->satisFiyati,
                 'aciklama'=>$request->aciklama,
                 'durum'=>$request->durum,
-                'resim' => $name
-            ]
+                'resim' => $name]
         ]);
         return redirect('admin/urunler')->with('success','Ürünler kaydedildi.');
     }
@@ -72,8 +70,16 @@ class UrunlerController extends Controller
 
         $turler = DB::select('SELECT * FROM turler ORDER BY adi');
         $kategoriler = DB::select('SELECT * FROM kategoriler ORDER BY adi');
-        //$veri = DB::select('SELECT * from kitaplars WHERE Id = ?',[$id]);
-        $veri = Kitaplar::findOrFail($id);
+
+         /*$sql='select k.*,c.adi as kategori,t.adi as turu
+            from kitaplars k ,kategoriler c,turler t
+            where k.kategori_id = c.Id and k.turu_id = t.Id and Id = ?
+            ORDER by k.adi';*/
+
+        //$veri = Kitaplar::findOrFail($id);
+        $veri = DB::select('select k.*,c.adi as kategori,t.adi as turu
+            from kitaplars k ,kategoriler c,turler t
+            where k.kategori_id = c.Id and k.turu_id = t.Id and k.Id = ?',[$id]);
 
         return view("admin.urun_duzenleme",compact('veri','turler','kategoriler'));
         //rs = record set
@@ -83,6 +89,30 @@ class UrunlerController extends Controller
     {
         //Düzenleme formundan gelen verileri günceller.
         echo "Güncelleme".$id;
+
+        if($request->hasFile('resim'))
+        {
+            $file = $request->file('resim');
+            $name = time().$file->getClientOriginalName();
+            $file -> move(public_path().'/userfiles/',$name);
+        }
+
+        DB::table('kitaplars')
+            ->where('Id',$id)
+            ->update([
+            ['adi'=>$request->get('adi'),
+                'keywords' => $request->get('keywords'),
+                'description' => $request->description,
+                'turu_id'=>$request->turu_id,
+                'kategori_id'=>$request->kategori_id,
+                'yazar'=>$request->yazar,
+                'stok'=>$request->stok,
+                'alisFiyati'=>$request->alisFiyati,
+                'satisFiyati'=>$request->satisFiyati,
+                'aciklama'=>$request->aciklama,
+                'durum'=>$request->durum,
+                'resim' => $name]
+        ]);
     }
 
     public function destroy($id)
