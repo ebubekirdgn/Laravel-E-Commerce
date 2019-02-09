@@ -71,10 +71,6 @@ class UrunlerController extends Controller
         $turler = DB::select('SELECT * FROM turler ORDER BY adi');
         $kategoriler = DB::select('SELECT * FROM kategoriler ORDER BY adi');
 
-         /*$sql='select k.*,c.adi as kategori,t.adi as turu
-            from kitaplars k ,kategoriler c,turler t
-            where k.kategori_id = c.Id and k.turu_id = t.Id and Id = ?
-            ORDER by k.adi';*/
 
         //$veri = Kitaplar::findOrFail($id);
         $veri = DB::select('select k.*,c.adi as kategori,t.adi as turu
@@ -88,7 +84,7 @@ class UrunlerController extends Controller
     public function update(Request $request, $id)
     {
         //Düzenleme formundan gelen verileri günceller.
-        echo "Güncelleme".$id;
+        //echo "Güncelleme".$id;
 
         if($request->hasFile('resim'))
         {
@@ -100,19 +96,19 @@ class UrunlerController extends Controller
         DB::table('kitaplars')
             ->where('Id',$id)
             ->update([
-            ['adi'=>$request->get('adi'),
-                'keywords' => $request->get('keywords'),
-                'description' => $request->description,
-                'turu_id'=>$request->turu_id,
-                'kategori_id'=>$request->kategori_id,
-                'yazar'=>$request->yazar,
-                'stok'=>$request->stok,
-                'alisFiyati'=>$request->alisFiyati,
-                'satisFiyati'=>$request->satisFiyati,
-                'aciklama'=>$request->aciklama,
-                'durum'=>$request->durum,
-                'resim' => $name]
-        ]);
+                ['adi'=>$request->get('adi'),
+                    'keywords' => $request->get('keywords'),
+                    'description' => $request->description,
+                    'turu_id'=>$request->turu_id,
+                    'kategori_id'=>$request->kategori_id,
+                    'yazar'=>$request->yazar,
+                    'stok'=>$request->stok,
+                    'alisFiyati'=>$request->alisFiyati,
+                    'satisFiyati'=>$request->satisFiyati,
+                    'aciklama'=>$request->aciklama,
+                    'durum'=>$request->durum,
+                    'resim' => $name]
+            ]);
     }
 
     public function destroy($id)

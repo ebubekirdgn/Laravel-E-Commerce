@@ -19,7 +19,7 @@
             <div class="alert alert-success">
                 <p>{{\Session::get('success')}}</p>
             </div>
-        </br>
+            </br>
         @endif
         <div class="box-body">
             <table class="table table-bordered">
