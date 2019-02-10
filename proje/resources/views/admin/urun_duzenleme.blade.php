@@ -103,6 +103,7 @@
                 <div class="form-group">
                     <label  class="col-sm-2 control-label">Resim</label>
                     <div class="col-sm-10">
+                        <input type="hidden" name="resim2" value="{{$veri[0]->resim}}" >
                         <input type="file" name="resim">
                     </div>
                     <img src="{{url('/')}}/userfiles/{{$veri[0]->resim}}" width="100" height="100">
@@ -110,7 +111,7 @@
             </div>
             <!-- /.box-body -->
             <div class="box-footer">
-                <button type="submit" class="btn btn-success pull-right">Kaydet</button>
+                <button type="submit" class="btn btn-success pull-right">Güncelle</button>
             </div>
             <!-- /.box-footer -->
         </form>

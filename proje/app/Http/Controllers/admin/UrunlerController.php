@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -43,7 +43,7 @@ class UrunlerController extends Controller
         }
 
         DB::table('kitaplars')->insert([
-            ['adi'=>$request->get('adi'),
+            'adi'=>$request->get('adi'),
                 'keywords' => $request->get('keywords'),
                 'description' => $request->description,
                 'turu_id'=>$request->turu_id,
@@ -54,7 +54,7 @@ class UrunlerController extends Controller
                 'satisFiyati'=>$request->satisFiyati,
                 'aciklama'=>$request->aciklama,
                 'durum'=>$request->durum,
-                'resim' => $name]
+                'resim' => $name
         ]);
         return redirect('admin/urunler')->with('success','Ürünler kaydedildi.');
     }
@@ -83,21 +83,20 @@ class UrunlerController extends Controller
 
     public function update(Request $request, $id)
     {
-        //Düzenleme formundan gelen verileri günceller.
-        //echo "Güncelleme".$id;
-
         if($request->hasFile('resim'))
         {
             $file = $request->file('resim');
             $name = time().$file->getClientOriginalName();
             $file -> move(public_path().'/userfiles/',$name);
         }
+        else
+            $name = $request->resim2;
 
         DB::table('kitaplars')
             ->where('Id',$id)
             ->update([
-                ['adi'=>$request->get('adi'),
-                    'keywords' => $request->get('keywords'),
+                'adi'=>$request->adi,
+                    'keywords' => $request->keywords,
                     'description' => $request->description,
                     'turu_id'=>$request->turu_id,
                     'kategori_id'=>$request->kategori_id,
@@ -106,14 +105,15 @@ class UrunlerController extends Controller
                     'alisFiyati'=>$request->alisFiyati,
                     'satisFiyati'=>$request->satisFiyati,
                     'aciklama'=>$request->aciklama,
+                    'resim' => $name,
                     'durum'=>$request->durum,
-                    'resim' => $name]
             ]);
+        return redirect('admin/urunler')->with('success',$request->adi.' Güncelleme Başarılı.');
     }
 
     public function destroy($id)
     {
-        //
-        echo "silme".$id;
+        DB::delete('delete from kitaplars where id = ?',[$id]);
+        return redirect('admin/urunler')->with('success','Silme Başarılı.');
     }
 }

@@ -28,3 +28,13 @@ Route::get('/admin/urun/show/{id}','admin\UrunlerController@show');
 Route::get('/admin/urun/ekle','admin\UrunlerController@create');
 Route::post('/admin/urun/save','admin\UrunlerController@store');
 Route::post('/admin/urun/update/{id}','admin\UrunlerController@update');
+
+//Kategori İşlemleri
+
+Route::get('/admin/kategoriler','admin\KategoriController@index');
+Route::get('/admin/kategori/edit/{id}','admin\KategoriController@edit');
+Route::get('/admin/kategori/del/{id}','admin\KategoriController@destroy');
+Route::get('/admin/kategori/show/{id}','admin\KategoriController@show');
+Route::get('/admin/kategori/ekle','admin\KategoriController@create');
+Route::post('/admin/kategori/save','admin\KategoriController@store');
+Route::post('/admin/kategori/update/{id}','admin\KategoriController@update');
