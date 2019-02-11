@@ -116,4 +116,34 @@ class UrunlerController extends Controller
         DB::delete('delete from kitaplars where id = ?',[$id]);
         return redirect('admin/urunler')->with('success','Silme Başarılı.');
     }
+    public function galeri_formu($id)
+    {
+        $resimler = DB::select('SELECT * FROM images where urun_id = ?',[$id]);
+
+        $veri = DB::select('SELECT * FROM kitaplars where id = ?',[$id]);
+
+        return view('admin.urun_galeri_ekleme',compact('veri','resimler'));
+        //rs = record set
+    }
+    public function galeri_ekle($id,Request $request)
+    {
+        if($request->hasFile('resim'))
+        {
+            $file = $request->file('resim');
+            $name = time().$file->getClientOriginalName();
+            $file -> move(public_path().'/userfiles/',$name);
+        }
+
+        DB::table('images')->insert([
+            'urun_id'=>$request->id,
+            'resim' => $name
+        ]);
+        return redirect('admin/urun/galeri/'.$request->id)->with('success','Ürünler kaydedildi.');
+    }
+
+    public function galeri_sil($id)
+    {
+        DB::delete('delete from images where Id = ?',[$id]);
+        return redirect('admin/urun/galeri/'.$id)->with('success',' Galeriden resim silindi.');
+    }
 }

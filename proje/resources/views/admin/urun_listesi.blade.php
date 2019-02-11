@@ -43,7 +43,10 @@
                         <td>{{$urun -> satisFiyati}}</td>
                         <td>{{$urun -> stok}}</td>
                         <td>{{$urun -> durum}}</td>
-                        <td><img src=" {{url('/')}}/userfiles/{{$urun->resim}}" width="70px" height="70px" /></td>
+                        <td>
+                            <img src=" {{url('/')}}/userfiles/{{$urun->resim}}" width="70px" height="70px" />
+                            <a href="{{url('/')}}/admin/urun/galeri/{{$urun->Id}}" onclick="return !window.open(this.href,'','top=100 left=200 width=800,height=600')">Galeri</a>
+                        </td>
                         <td>
                             <a href="{{url('/')}}/admin/urun/edit/{{$urun->Id}}" class="btn btn-primary">Düzenle</a>
                             <a href="{{url('/')}}/admin/urun/del/{{$urun->Id}}" onclick="return confirm('{{$urun->adi}} adlı veriyi silmek istediğinizden emin misiniz?')" class="btn btn-danger">Sil</a>

@@ -28,6 +28,9 @@ Route::get('/admin/urun/show/{id}','admin\UrunlerController@show');
 Route::get('/admin/urun/ekle','admin\UrunlerController@create');
 Route::post('/admin/urun/save','admin\UrunlerController@store');
 Route::post('/admin/urun/update/{id}','admin\UrunlerController@update');
+Route::get('/admin/urun/galeri/{id}','admin\UrunlerController@galeri_formu');
+Route::post('/admin/urun/galeri/{id}','admin\UrunlerController@galeri_ekle');
+Route::get('/admin/urun/galerisil/{id}','admin\UrunlerController@galeri_sil');
 
 //Kategori İşlemleri
 

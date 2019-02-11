@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Kategoriler;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Kitaplar;
 
 class KategoriController extends Controller
 {
@@ -51,10 +51,8 @@ class KategoriController extends Controller
 
     public function edit($id)
     {
-        $kategori = DB::select('SELECT * FROM kategoriler ORDER BY adi');
-
-
-
+        $kategori = DB::select('SELECT * FROM kategoriler WHERE ust_id=0 ORDER BY adi');
+        $x = Kategoriler::findOrFail($id);
         $veri = DB::select('SELECT a.*,b.adi as kategori
                 FROM kategoriler a LEFT  JOIN kategoriler b
                 ON a.ust_id = b.Id
